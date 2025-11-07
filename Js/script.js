@@ -1,4 +1,4 @@
-const CORRECT_PASSWORD = "your_secret_password"; // ★設定したパスワード
+const CORRECT_PASSWORD = "uPck7BCdqrjx"; // ★設定したパスワード
 
 function checkPassword() {
     // 1. すでに認証済みかチェック
