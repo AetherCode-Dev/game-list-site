@@ -1,13 +1,17 @@
-// 【重要】ここに設定するパスワード（合言葉）を決めてください。
-const CORRECT_PASSWORD = "uPck7BCdqrjx"; // ★★★★★ ここを変更 ★★★★★
+const CORRECT_PASSWORD = "your_secret_password"; // ★設定したパスワード
 
-// ユーザーにパスワードの入力を求める
-const user_input = prompt("このサイトはポートフォリオとして非公開設定です。閲覧用のパスワードを入力してください。");
+function checkPassword() {
+    // 1. すでに認証済みかチェック
+    if (sessionStorage.getItem('authenticated') === 'true') {
+        return; // 認証済みなら何もしない
+    }
 
-// 入力がキャンセルされた、またはパスワードが間違っていた場合
-if (user_input === null || user_input !== CORRECT_PASSWORD) {
-    // パスワードが間違っている、またはキャンセルされた場合は、ページの内容をすべて非表示にする
-    document.documentElement.innerHTML = `
+    // 2. 認証が必要な場合の処理
+    const user_input = prompt("このサイトはポートフォリオとして非公開設定です。閲覧用のパスワードを入力してください。");
+
+    if (user_input === null || user_input !== CORRECT_PASSWORD) {
+        // パスワードが間違っている場合の処理 (現在のコードと同じ)
+        document.documentElement.innerHTML = `
         <style>
             body {
                 display: flex;
@@ -20,10 +24,19 @@ if (user_input === null || user_input !== CORRECT_PASSWORD) {
                 color: white;
                 text-align: center;
             }
-        </style>
+    </style>
         <div>
             <h1>Access Denied (アクセス拒否)</h1>
             <p>パスワードが正しくありません。制作者の指示がない限り閲覧できません。</p>
         </div>
-    `;
+        `;
+        return false;
+    }
+
+    // 3. 認証に成功した場合
+    sessionStorage.setItem('authenticated', 'true'); // セッションに認証成功を記録
+    return true;
 }
+
+// 関数の実行を指示
+checkPassword();
