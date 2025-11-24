@@ -210,6 +210,12 @@ section::after{
 .list{
   list-style-type: none;
 }
+
+.playGame:hover{
+    color: #4B3832; /* 濃い茶色など、元の背景色に合わせた色 */
+    text-decoration: underline; /* 下線を追加 */
+    cursor: pointer; /* マウスカーソルを指の形にする */
+}
 /* 連絡フォーム設定 */
 .block_contact{
   padding: 60px;
