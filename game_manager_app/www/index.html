@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ギルド組合員帳（タスクと精神衛生管理）</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="phone-frame-container">
+        
+    <h1>ギルド組合員帳</h1>
+
+
+    <h2>クエストの登録</h2>
+    <input type="text" id="quest-input" placeholder="新しいクエスト名を入力">
+    <button id="add-quest-button">クエスト登録</button>
+
+    <hr>
+
+    <nav>
+    <button id="nav-menu" class="tab-button">ステータス</button>
+    <button id="nav-status" class="tab-button">クエスト</button>
+    <button id="nav-shop" class="tab-button">買い物（アイテム購入）</button>
+</nav>
+
+
+<div id="app-container">
+    <div id="status-menu">
+        <p>プレイヤー名: <span id="hero-name"></span></p>
+        
+        <div id="hp-display">
+            <button id="damage-button">💥 攻撃を受ける (-10)</button>
+
+            <p>現在のHP: <span id="current-hp"></span></p>
+            <p>現在の所持金: <span id="current-gold">0 G</span></p>
+            <button id="go-to-sleep-button">🌙 今日はもう寝る（HP全回復）</button>
+        </div>
+
+        <form id="health-check-form">
+            <h3>ステート異常</h3>
+                <ul class="selection-group">
+                    <li>
+                        <input type="checkbox" id="state-menses" name="menses_state" value="menses" class="hidden-checkbox">
+                        <label for="state-menses" class="state-label menses">
+                            生理
+                        </label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="state-headache" name="physical_state" value="headache" class="hidden-checkbox">
+                        <label for="state-headache" class="state-label physical">
+                            頭痛
+                        </label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="state-stomach" name="physical_state" value="stomachache" class="hidden-checkbox">
+                        <label for="state-stomach" class="state-label physical">
+                            腹痛
+                        </label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="state-lumbago" name="physical_state" value="lumbago" class="hidden-checkbox">
+                        <label for="state-lumbago" class="state-label physical">
+                            腰痛
+                        </label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="state-nausea" name="physical_state" value="nausea" class="hidden-checkbox">
+                        <label for="state-nausea" class="state-label physical">
+                            吐き気
+                        </label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="state-dizzy" name="physical_state" value="dizzy" class="hidden-checkbox">
+                        <label for="state-dizzy" class="state-label physical">
+                            めまい
+                        </label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="state-slightFever" name="physical_state" value="slightFever" class="hidden-checkbox">
+                        <label for="state-slightFever" class="state-label physical">
+                            微熱
+                        </label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="state-palpitations" name="physical_state" value="palpitations" class="hidden-checkbox">
+                        <label for="state-palpitations" class="state-label physical">
+                            動悸
+                        </label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="state-Cold" name="physical_state" value="Cold" class="hidden-checkbox">
+                        <label for="state-Cold" class="state-label physical">
+                            冷え
+                        </label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="state-hotFlashes" name="physical_state" value="hotFlashes" class="hidden-checkbox">
+                        <label for="state-hotFlashes" class="state-label physical">
+                            のぼせ
+                        </label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="state-Swelling" name="physical_state" value="Swelling" class="hidden-checkbox">
+                        <label for="state-Swelling" class="state-label physical">
+                            むくみ
+                        </label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="state-roughSkin" name="physical_state" value="roughSkin" class="hidden-checkbox">
+                        <label for="state-roughSkin" class="state-label physical">
+                            肌荒れ
+                        </label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="state-diarrhea" name="physical_state" value="diarrhea" class="hidden-checkbox">
+                        <label for="state-diarrhea" class="state-label physical">
+                            下痢
+                        </label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="state-constipation" name="physical_state" value="constipation" class="hidden-checkbox">
+                        <label for="state-constipation" class="state-label physical">
+                            便秘
+                        </label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="state-tinnitus" name="physical_state" value="tinnitus" class="hidden-checkbox">
+                        <label for="state-tinnitus" class="state-label physical">
+                            耳鳴り
+                        </label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="state-sleep" name="mental_state" value="sleep_deprivation" class="hidden-checkbox">
+                        <label for="state-sleep" class="state-label mental">
+                            睡眠不足
+                        </label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="state-tired" name="mental_state" value="tired" class="hidden-checkbox">
+                        <label for="state-tired" class="state-label mental">
+                            意欲低下
+                        </label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="state-food" name="mental_state" value="loss_of_appetite" class="hidden-checkbox">
+                        <label for="state-food" class="state-label mental">
+                            食欲不振
+                        </label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="state-fatigue" name="mental_state" value="fatigue" class="hidden-checkbox">
+                        <label for="state-fatigue" class="state-label mental">
+                            疲労
+                        </label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="state-lethargy" name="mental_state" value="lethargy" class="hidden-checkbox">
+                        <label for="state-lethargy" class="state-label mental">
+                            無気力
+                        </label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="state-grief" name="mental_state" value="grief" class="hidden-checkbox">
+                        <label for="state-grief" class="state-label mental">
+                            悲しみ
+                        </label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="state-anger" name="mental_state" value="anger" class="hidden-checkbox">
+                        <label for="state-anger" class="state-label mental">
+                            怒り
+                        </label>
+                    </li>
+                    <li>                        
+                        <input type="checkbox" id="state-anxiety" name="mental_state" value="anxiety" class="hidden-checkbox">
+                        <label for="state-anxiety" class="state-label mental">
+                            不安
+                        </label>
+                    </li>
+                    <li>                        
+                        <input type="checkbox" id="state-impatience" name="mental_state" value="impatience" class="hidden-checkbox">
+                        <label for="state-impatience" class="state-label mental">
+                            焦燥
+                        </label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="state-Another" name="state" value="Another" class="hidden-checkbox">
+                        <label for="state-Another" class="state-label">
+                            その他
+                        </label>
+                    </li>
+                </ul>
+        </form>
+
+    </div>
+    <div id="status-screen">
+            <h2>現在のクエスト</h2>
+            <ul id="quest-list">
+            </ul>
+        </div>
+    
+    <div id="shop-screen" style="display: none;">
+        <h2>アイテムショップ</h2>
+        <p>所持金: <span id="shop-gold-display">100 G</span></p>
+        
+        <div class="item">
+            <button id="buy-potion">購入</button>
+            <h3>HP回復薬 (50 G)</h3>
+            <p>HPを50回復する</p>
+        </div>
+        <div class="item">
+            <button id="buy-maxhp-potion">購入</button>
+            <h3>強壮薬 (200 G)</h3>
+            <p>HP上限が 20 アップする</p>
+        </div>
+    </div>
+</div>
+</div>
+    <script src="js/app.js"></script>
+</body>
+</html>
