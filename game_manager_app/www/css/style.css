@@ -1,0 +1,261 @@
+@charset "UTF-8";
+/* サイト全体（body）の設定 */
+body {
+    /* Flexboxで縦横の中央揃えを有効化 */
+    font-family: 'メイリオ', 'Yu Gothic', sans-serif;
+    color: #333;
+    display: flex;
+    justify-content: center; /* 横方向の中央揃え */
+    align-items: center;    /* 縦方向の中央揃え */
+    
+    /* bodyが画面全体を覆うように設定 */
+    min-height: 100vh; /* 画面の高さ分を確保 */
+    margin: 0;
+    background-color: #eeeeee; /* 背景色（任意） */
+}
+
+h1{
+    font-size: 30px;
+    text-align: center;
+    color: #4B3832; 
+    font-weight: 700;
+}
+p{
+  font-size: 16px;
+}
+
+/* スマホ枠のスタイル */
+.phone-frame-container {
+    /* 1. サイズ設定 (一般的なスマホ画面サイズを想定) */
+    width: 375px; /* 例: iPhone X/11/12/13 の論理ピクセル幅 */
+    height: 700px;
+    background-color: #f0f0f0;
+    background-image: url('../img/botanical.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+     
+    /* 2. 見た目の設定 (スマホの外枠をシミュレート) */
+    border: 12px solid #333; /* 外枠の色と太さ */
+    border-radius: 40px; /* 角を大きく丸くする */
+    overflow: hidden; /* コンテンツが枠をはみ出さないように */
+    
+    /* 3. 立体感の追加 */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* 影で立体的に */
+    
+    /* 4. コンテンツ（プロトタイプ）との隙間をなくす */
+    padding: 0;
+}
+
+#app-container {
+    /* 画面の最大幅を設定し、スマホサイズに近い幅に制限 */
+    max-width: 450px; 
+    /* 画面の左右中央に寄せる */
+    margin: 0 auto; 
+    /* 見栄えを良くするための枠線や影 */
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    /* 残りの利用可能なスペースを全て占有する */
+    flex-grow: 1; /* 縦スクロールを有効にする */
+    overflow-y: auto; /* 初期高さを0にする (flex-growが機能するように) */
+    flex-basis: 0;
+}
+
+/* タブを画面上部に固定し、中央に配置 */
+nav {
+    position: sticky; /* スクロールしても上部に張り付く */
+    top: 0;           /* 上端から0の位置に固定 */
+    background-color: #f8f8f8; /* タブの背景色（コンテンツに被らないように） */
+    padding: 10px;
+    margin-bottom: 10px;
+    text-align: center; /* ボタンを中央寄せにする */
+    z-index: 100; /* 他の要素より手前に表示 */
+}
+
+/* クエストリストが多い場合の対応（スワイプ/スクロール） */
+/* 全てのコンテンツが入るコンテナ（#app-container）に縦のスクロールを設定します */
+#app-container {
+    /* (昨日のmax-widthとmarginの設定はそのまま) */
+    max-height: 500; /* 画面の高さからナビゲーション分を引く */
+    overflow-y: auto;               /* 縦スクロールを有効にする */
+    padding: 10px;
+}
+
+/*****************
+ステート異常
+*****************/
+.selection-group {
+    list-style: none; 
+    padding: 0;       /* デフォルトの左右パディングを削除 */
+    margin: 0;        /* デフォルトの上下マージンを削除 */
+    font-size: 80%;
+    line-height: 80%;
+    
+    /* Flexboxで横並び、自動折り返しを有効化 */
+    display: flex;
+    flex-wrap: wrap;
+    height: 300;
+    overflow-y: auto;
+    
+    /* ステータス画面の幅全体を使う */
+    width: 100%;
+}
+
+/* 1. チェックボックス本体を画面から隠す */
+.hidden-checkbox {
+    position: absolute; /* 配置を絶対位置にする */
+    opacity: 0;       /* 透明にする */
+    width: 0;
+    height: 0;
+}
+
+/* 2. ラベルの基本スタイル（ボタン化） */
+.state-label {
+    display: inline-block;
+    padding: 8px 12px;
+    margin: 4px;
+    border: 1px solid #ccc;
+    border-radius: 20px; /* 角を丸くする */
+    cursor: pointer;
+    transition: all 0.2s; /* ホバーや選択時にアニメーションを付ける */
+    /* Flexアイテムの幅は固定せず、内容に応じてサイズを変える */
+    flex-shrink: 0; 
+    flex-grow: 0;
+    /* width設定がある場合は削除するか、最小幅(min-width)にする */
+    min-width: fit-content; /* コンテンツの幅に合わせて縮める */
+}
+
+/* 3. 選択されたときのスタイル (チェック時の色変更) */
+
+/* -------------------------------------- */
+/* 共通の選択済みスタイル (前回のコードから再掲) */
+/* -------------------------------------- */
+.hidden-checkbox:checked + .state-label {
+    font-weight: bold;
+    background-color: #e0f7fa; /* 薄いピンク */
+    border-color: #00bcd4; /* 選択状態の枠線 */
+    border-width: 2px; /* 選択されていることを強調 */
+}
+
+/* -------------------------------------- */
+/* 精神ステート (クラス名: mental) の色 */
+/* -------------------------------------- */
+.hidden-checkbox:checked + .state-label.mental {
+    background-color: #fbe6ff; /* 薄いラベンダー/ピンク */
+    border-color: #8c00b3;    /* 濃い紫 */
+    color: #63007a;
+}
+
+/* -------------------------------------- */
+/* 身体ステート (クラス名: physical) の色 */
+/* -------------------------------------- */
+.hidden-checkbox:checked + .state-label.physical {
+    background-color: #e0f8e0; /* 薄いミントグリーン */
+    border-color: #008000;    /* 濃い緑 */
+    color: #005f00;
+}
+
+/* -------------------------------------- */
+/* 生理ステート (クラス名: menses) の色 */
+/* -------------------------------------- */
+.hidden-checkbox:checked + .state-label.menses {
+    background-color: #f8ebe0; /* 薄いミントグリーン */
+    border-color: #904100;    /* 濃い緑 */
+    color: #ff8400;
+}
+
+
+#quest-list{
+    /* 1. リストの装飾をリセット (Flexboxの作業で必要) */
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    height: 300px;
+    overflow-y: auto;
+}
+
+/*****************
+ショップ画面
+*****************/
+#shop-screen{
+    border: 1px solid #ddd; 
+    padding: 15px;
+    margin-bottom: 15px; /* 下に余白 */
+    border-radius: 8px; /* 角を少し丸める */
+    background-color: #fcfcfc; /* やや明るい背景色 */
+}
+.item{
+    color: #0056b3; /* 青系の色にすると、効果や重要性が強調されます */
+    margin-bottom: 5px;
+}
+#buy-potion, #buy-maxhp-potion{
+    /* ボタンのスタイル */
+    background-color: #4CAF50; /* 緑系で「購入」を強調 */
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    
+    /* ★右寄せにする★ */
+    float: right;
+}
+#buy-potion, #buy-maxhp-potion::after{
+    content: "";
+    display: table;
+    clear: both;
+}
+/*****************
+ステータス画面
+*****************/
+#damage-button{
+    background-color: #541800;
+    border-color: #ff0000;
+    color: rgb(255, 255, 255);
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    
+    /* ★右寄せにする★ */
+    float: right;
+}
+#go-to-sleep-button{
+    background-color: #001998;
+    color: rgb(255, 255, 255);
+    width: 90%;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+#quest-input{
+    border: 2px solid #A0522D;
+    box-shadow: 0 0 5px rgba(0, 100, 0, 0.5);
+    padding: .3em .5em;
+}
+#add-quest-button{
+    background-color: #388e3c;
+    color: white;
+    border-radius: 4px;
+    padding: .3em;
+}
+/* 未選択のタブのデフォルトスタイル */
+.tab-button {
+    /* 例: 薄い背景色 */
+    background-color: #f5f5f5; 
+    color: #666;
+}
+
+/* 選択中のタブ (active-tab クラスが追加された状態) */
+.tab-button.active-tab {
+    /* 例: 濃い背景色と白い文字、下線で強調 */
+    background-color: #4B3832; 
+    color: white;
+    border-bottom: 3px solid #81c784; 
+}
+
+#status-menu{
+    line-height: 80%;
+}
