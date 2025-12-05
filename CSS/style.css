@@ -296,6 +296,12 @@ textarea{
   border: 1px solid #aaaaaa;
   border-radius: 0;
 }
+.code_Intro img{
+  width: 100%; 
+  height: auto;
+  object-fit: cover;
+}
+
 /*****************
 スマートフォン設定
 *****************/
